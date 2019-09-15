@@ -1,0 +1,12 @@
+{
+	"name": "HackGame-Web Manager",
+	"id": "vendor.hackgame.admin",
+	"depends": [
+		"vendor.hackgame.core"
+	],
+	"autoload": [],
+	"eventListener": {
+		"onPageLoad": [
+		{"processer":"vendor.hackgame.admin.adminprocesser.event_onPageLoad","level":9998}]
+	}
+}

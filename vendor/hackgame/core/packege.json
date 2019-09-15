@@ -1,0 +1,13 @@
+{
+	"name": "HackGame-Core",
+	"id": "vendor.hackgame.core",
+	"depends": [
+		"vendor.hackgame.session"
+	],
+	"autoload": [],
+	"eventListener": {
+		"onPageLoad": [
+		{"processer":"vendor.hackgame.core.coreprocesser.event_onPageLoad","level":9999}
+		]
+	}
+}

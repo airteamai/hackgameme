@@ -1,0 +1,7 @@
+{
+	"name": "HackGame-Session Process",
+	"id": "vendor.hackgame.session",
+	"depends": [],
+	"autoload": [],
+	"eventListener": {}
+}

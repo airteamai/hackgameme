@@ -1,0 +1,13 @@
+{
+	"name": "HackGame-Answer Answer",
+	"id": "vendor.hackgame.answer",
+	"depends": [
+		"vendor.hackgame.core"
+	],
+	"autoload": [],
+	"eventListener": {
+		"onPageLoad": [
+		{"processer":"vendor.hackgame.answer.answerprocesser.event_onPageLoad","level":9998}
+		]
+	}
+}

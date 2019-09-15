@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HackGame ME</title>
+		<!----<link href="https://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet">--->	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="game.css" rel="stylesheet"/>
+		<script>
+			function pushLevel(level){
+				x=location.pathname.split("/");
+				x.pop();
+				history.pushState("","",x.join("/")+"/"+level);
+			}
+			window.alert=function(data){
+				$("#modaltext1").html(data);
+				$(".modal").modal("show");
+			}
+			function refishData(){
+				$.ajax(
+					{url:"problem",dataType:"json",fail:function(){alert("请求失败,请重试");},error:function(){alert("请求失败,请重试");},success:function(data){
+						$("#MainTitle").html(data.title);
+						$("#tongji").html(data.tongji);
+						$("#lv").html(data.lv);
+						$("#MainContent").html(data.problem);
+						pushLevel(data.level);
+					}}
+				);
+				//MainTitle
+			}
+			function submitAnswer(){
+				var answer=$("#ans").val();
+				$("#anssbm").html('<div class="sui-loading loading-xxsmall loading-inline"><i class="sui-icon icon-pc-loading" style="color:white!important"></i></div>');
+				$("#anssbm").attr("disabled","disabled");
+				$("#ans").attr("disabled","disabled");
+				//$("#MainContent").slideToggle();
+				$.ajax(
+					{url:"answer?ans="+answer,dataType:"json",fail:function(){
+						//$("#MainContent").slideToggle();
+						$("#anssbm").html('Go');
+						$("#anssbm").removeAttr("disabled");
+						$("#ans").removeAttr("disabled");
+						alert("请求失败,请重试");
+					},error:function(){
+						//$("#MainContent").slideToggle();
+						$("#anssbm").html('Go');
+						$("#anssbm").removeAttr("disabled");
+						$("#ans").removeAttr("disabled");
+						alert("请求失败,请重试");
+					},success:function(data){
+						//$("#MainContent").slideToggle();
+						console.log(data);
+						if(data.code<0){
+							alert(data.msg);
+							$("#anssbm").html('Go');
+							$("#anssbm").removeAttr("disabled");
+							$("#ans").removeAttr("disabled");
+							return;
+						}
+						refishData();
+						$("#anssbm").html('Go');
+						$("#anssbm").removeAttr("disabled");
+						$("#ans").removeAttr("disabled");
+						$("#ans").val("");
+					}}
+				);
+			}
+			//Ajax加载控制
+			
+		</script>
+	</head>
+	<body>
+		
+    <div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+ 
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title">提示</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+ 
+      <!-- 模态框主体 -->
+      <div class="modal-body" id="modaltext1">
+        
+      </div>
+ 
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+<div class="container">
+			<p class="level_id" id="lv">Lv {{lv}}</p>
+			<h1 class="title"><span class="codename" id="MainTitle">{{game_title}}</span></h1>
+			
+			<div class="contentbox" id="MainContent">
+{{data}}
+				</div>
+			<div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
+					
+					<div class="input-group input-group-lg">
+						<input class="form-control" type="text" name="ans" id="ans" value="" autocomplete="off" placeholder=""
+						  required="required">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" onclick="submitAnswer()" id="anssbm">Go</button>
+						</span>
+					</div>
+			</div>
+	<p class="tongji" id="tongji">LV {{lv}} 共有 {{next_pass}} 名挑战者通过了,通过率为 {{pass_round}}({{next_pass}}/{{this_pass}})</p>
+</div>
+			
+</div>
+		<footer role="contentinfo" class="lead">
+			<div style="height: 60px;">
+				<div class="button-slot">
+					Copyright © Mumuli & Jason
+				</div>
+				<!-- <span>Copyright © Mumuli</span> -->
+			</div>
+		</footer>
+		<script src="https://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!----<script type="text/javascript" src="https://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>--->
+		
+	</body>
+</html>
+		
