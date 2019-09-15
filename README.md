@@ -8,3 +8,6 @@ HackGame ME是Hackgame (https://gitee.com/qiaoqianwa/HackGame) 的分支版本
 * 基本的功能(同HackGame)
 * 支持全站Ajax+PushState
 * 支持增删模块(本身HackGame ME的各部分组件都分了模块)
+
+# 演示站
+http://ctf.52chye.cn
